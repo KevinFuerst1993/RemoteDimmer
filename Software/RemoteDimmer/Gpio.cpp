@@ -1,6 +1,6 @@
 /*
  * Project: RemoteDimmer
- * File: ZeroDetectionGpio.cpp
+ * File: Gpio.cpp
  * Date: 12.02.2017
  * Author: Kevin Fuerst
  */

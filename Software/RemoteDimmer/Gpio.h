@@ -1,12 +1,13 @@
 /*
  * Project: RemoteDimmer
- * File: ZeroDetectionGpio.h
+ * File: Gpio.h
  * Date: 12.02.2017
  * Author: Kevin Fuerst
+ * Note: Not every GPIO seems to generate interrupts. D0 hasent worked. D5 and D6 seem to work.
  */
 
-#ifndef ZERODETECTIONGPIO_H_
-#define ZERODETECTIONGPIO_H_
+#ifndef GPIO_H_
+#define GPIO_H_
 
 //Includes
 #include <ESP8266mDNS.h>
@@ -34,4 +35,4 @@ class Gpio
 
 
 
-#endif /* ZERODETECTIONGPIO_H_ */
+#endif /* GPIO_H_ */

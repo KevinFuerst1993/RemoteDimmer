@@ -2,13 +2,15 @@
 #include "Fsm.h"
 #include "Webserver.h"
 #include "Gpio.h"
+#include "Timer.h"
 
 //Global objects/variables
 Fsm fsm;
-Webserver webserver("FMBK-NG","Die21Tulpen");
+int testVar = 0;
 
 //Funcion prototyps
 void webserverCb(int length, int* data);
+void test(void *pArg);
 
 enum{dimmMode = 0, onOffMode = 1, wakeUpMode = 2};
 
@@ -24,12 +26,20 @@ void setup()
 
 void loop() 
 {
+  Webserver webserver("FMBK-NG","Die21Tulpen");
   webserver.registerCb(webserverCb);
-  //ZeroDetectionGpio gpio;
- 
+
+  //test
+  Timer timer;
+  timer.setInterval(1000);
+  timer.setRepeatMode(true);
+  timer.registerCb(test);
+  timer.start(); 
+
   while(1)
   {
     webserver.handleClient(); 
+    
   }
 }
 
@@ -43,7 +53,7 @@ void webserverCb(int length, int* data)
     Serial.print(data[i]);
   }
   //-----------------------
-  
+    
   switch(data[0])
   {
     case dimmMode:    fsm.setDimmLevel(data[1]);
@@ -64,10 +74,25 @@ void webserverCb(int length, int* data)
                       break;
     
   }
-  
-  
 }
 
-
+void test(void *pArg)
+{
+  static int count = 1;
+  Serial.println("");
+  Serial.print(count);
+  count++;
+  
+  /*if(testVar == 0)
+  {
+    digitalWrite(LED_BUILTIN, LOW);
+    testVar = 1;
+  }
+  else
+  {
+    digitalWrite(LED_BUILTIN, HIGH);
+    testVar = 0;
+  }*/
+}
 
 

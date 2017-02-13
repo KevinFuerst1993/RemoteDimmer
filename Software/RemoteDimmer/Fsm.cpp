@@ -14,8 +14,8 @@
 Fsm::Fsm()
   :currentState(offState), dimmLevel(0)
 {
-  zeroDetectionGpio = new Gpio(Gpio::D0, Gpio::input);
-  outputGpio = new Gpio(Gpio::D1, Gpio::output);
+  zeroDetectionGpio = new Gpio(Gpio::D5, Gpio::input);
+  outputGpio = new Gpio(Gpio::D6, Gpio::output);
 
   zeroDetectionGpio->registerInterruptCb(interruptCb,Gpio::rising);
   
