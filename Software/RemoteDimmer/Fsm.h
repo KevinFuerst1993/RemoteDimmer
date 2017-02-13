@@ -11,7 +11,7 @@
 //Includes
 
 //Forward declarations
-class ESP8266WebServer;
+class Gpio;
 
 enum Event{evOn,evOff,evDimm,evWakeUp};
 
@@ -19,7 +19,6 @@ class Fsm
 {
   public:
     Fsm();
-    //void process(Event e);
     void process(Event e); 
     void setDimmLevel(int dimmLevel);
     
@@ -27,7 +26,9 @@ class Fsm
     enum State{dimmState, onState, offState, wakeUpState};
     State currentState;
     int dimmLevel;
-
+    Gpio* zeroDetectionGpio;
+    Gpio* outputGpio;
+    static void interruptCb(void);
 };
 
 #endif /* FSM_H_ */

@@ -1,10 +1,11 @@
 //Includes
 #include "Fsm.h"
 #include "Webserver.h"
-#include "ZeroDetectionGpio.h"
+#include "Gpio.h"
 
 //Global objects/variables
 Fsm fsm;
+Webserver webserver("FMBK-NG","Die21Tulpen");
 
 //Funcion prototyps
 void webserverCb(int length, int* data);
@@ -19,11 +20,12 @@ void setup()
   Serial.println("Program started");
   //--------------------
 }
-Webserver webserver("FMBK-NG","Die21Tulpen");
+
+
 void loop() 
 {
   webserver.registerCb(webserverCb);
-  ZeroDetectionGpio gpio;
+  //ZeroDetectionGpio gpio;
  
   while(1)
   {

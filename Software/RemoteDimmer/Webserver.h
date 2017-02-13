@@ -21,16 +21,7 @@ class Webserver
     Webserver(char* ssid, char* password);
     void handleClient(void);
     int registerCb(cbFunction f);
-    
-    
-    
-    
-    int getDimmerLevel(void);
-
-    
-    
-
-    
+       
   private:
     enum {maxNumberOfArguments = 2};
     static ESP8266WebServer* server;
