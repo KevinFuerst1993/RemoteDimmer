@@ -26,12 +26,12 @@ void Timer::setRepeatMode(bool modeFlag)
 
 void Timer::start(void)
 {
-  if(f != 0)
+  /*if(f != 0)
   {
     os_timer_setfn(&timer, f, NULL);
-  }
+  }*/
   
-  if(interval != 0)
+  if(interval != 0 && f != 0)
   {
     os_timer_arm(&timer, interval, modeFlag);
   }

@@ -40,7 +40,7 @@ Webserver::Webserver(char* ssid, char* password)
   
   MDNS.begin("esp8266");
 
-  server->on("/",getData);
+  server->on("/",getData); //Call through: "ip"/?mode=1&arg=2
   //test------------------------
   server->on("/ledOn",ledOn);
   server->on("/ledOff",ledOff);

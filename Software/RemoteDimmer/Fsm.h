@@ -9,26 +9,37 @@
 #define FSM_H_
 
 //Includes
+#include "Timer.h"
 
 //Forward declarations
 class Gpio;
-
-enum Event{evOn,evOff,evDimm,evWakeUp};
+class Webserver;
 
 class Fsm
 {
   public:
-    Fsm();
+    enum Event{evZeroDetection,evTimeout};
+    Fsm(Webserver* webserver);
     void process(Event e); 
-    void setDimmLevel(int dimmLevel);
     
   private:
+    void setDimmLevel(int dimmLvl);
+    void dimmUp(void);
+    void dimmDown(void);
     enum State{dimmState, onState, offState, wakeUpState};
+    enum{dimmMode = 0, onOffMode = 1, upMode = 2, downMode = 3, wakeUpMode = 4};
     State currentState;
     int dimmLevel;
+    int dimmFlag;
+    int wakeUpCount;
     Gpio* zeroDetectionGpio;
     Gpio* outputGpio;
-    static void interruptCb(void);
+    static Webserver* webserver;
+    static Fsm* fsm;
+    Timer timer;
+    static void zeroDetectionCb(void);
+    static void timerInterruptCb(void *pArg);
+    static void webserverCb(int length, int* data);
 };
 
 #endif /* FSM_H_ */
