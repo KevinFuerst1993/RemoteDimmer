@@ -33,25 +33,31 @@ void Fsm::process(Event e)
   {
     case dimmState:     if(e == evZeroDetection)
                         {
+                          /*
                           Serial.println("Event ZeroDetection occured");
                           Serial.println("  Current State = dimmState");
                           Serial.print("  DimmLevel = ");
                           Serial.print(dimmLevel);
                           Serial.println("");
                           Serial.println("");
+                          */
                           outputGpio->setOutput(Gpio::low);
-                          timer.setInterval((100 - dimmLevel) * 100/*/ 10*/);
+                          timer.setInterval((100 - dimmLevel) / 10);
+                         // timer.setInterval(5);
+                          
                           timer.setRepeatMode(false);
                           timer.start();
                         }
                         else if(e == evTimeout)
                         {
+                          /*
                           Serial.println("Event Timeout occured");
                           Serial.println("  Current State = dimmState");
                           Serial.print("  DimmLevel = ");
                           Serial.print(dimmLevel);
                           Serial.println("");
                           Serial.println("");
+                          */
                           outputGpio->setOutput(Gpio::high);
                         }
                         break;
@@ -62,37 +68,41 @@ void Fsm::process(Event e)
     
     case wakeUpState:   if(e == evZeroDetection)
                         {
+                          /*
                           Serial.println("Event ZeroDetection occured");
                           Serial.println("  Current State = wakeUpState");
                           Serial.print("  DimmLevel = ");
                           Serial.print(dimmLevel);
                           Serial.println("");
                           Serial.println("");
+                          */
                           outputGpio->setOutput(Gpio::low);
-                          timer.setInterval((100 - dimmLevel) * 10/*/ 10*/);
+                          timer.setInterval((100 - dimmLevel) / 10);
                           timer.setRepeatMode(false);
                           timer.start();
                         }
                         else if(e == evTimeout)
                         {
+                          /*
                           Serial.println("Event Timeout occured");
                           Serial.println("  Current State = wakeUpState");
                           Serial.print("  DimmLevel = ");
                           Serial.print(dimmLevel);
                           Serial.println("");
                           Serial.println("");
+                          */
                           outputGpio->setOutput(Gpio::high);
                           if(wakeUpCount == 50)
                           {
                             dimmLevel += 10;
+                            wakeUpCount = 0;
                           }
                           ++wakeUpCount;
 
                           if(dimmLevel >= 100)
                           {
                             dimmLevel = 90;
-                            currentState = onState;
-                            wakeUpCount = 0; 
+                            currentState = onState; 
                           }
                         }
                         break;

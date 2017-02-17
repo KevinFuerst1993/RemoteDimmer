@@ -46,7 +46,14 @@ Webserver::Webserver(char* ssid, char* password)
   server->on("/ledOff",ledOff);
   //--------------------------
 
-  server->begin(); 
+  server->begin();
+
+  //test ------------------------
+  Serial.println("Wifi connection done");
+  Serial.print("IP address: ");
+  Serial.println(WiFi.localIP());
+  Serial.println("");
+  //------------------------------
 }
 
 int Webserver::registerCb(cbFunction f)
